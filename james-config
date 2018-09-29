@@ -1,0 +1,11 @@
+# log server output to /var/log/james
+JAMES_LOG=1
+
+# use https, if you want to enable tls
+JAMES_SCHEME=http
+
+# the port the webserver is listening [default: 3333]
+JAMES_PORT=3333
+
+# what distribution do you use? [default: auto]
+USE_DIST=auto

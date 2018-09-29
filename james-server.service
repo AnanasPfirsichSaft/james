@@ -1,0 +1,37 @@
+[Unit]
+Description=Personal Webserver for JAMES
+After=network-online.target
+
+[Service]
+Type=forking
+Nice=5
+WorkingDirectory=/opt/james
+StandardOutput=null
+StandardError=null
+ProtectSystem=full
+# make your public folder available?
+# set to 'false' or 'read-only'
+ProtectHome=true
+ReadWriteDirectories=/var/log/james
+
+# these needs further testing
+#ProtectKernelTunables=true
+#ProtectKernelModules=true
+#ProtectControlGroups=true
+#MemoryDenyWriteExecute=true
+#RestrictNamespaces=yes
+#PrivateTmp=true
+#PrivateDevices=true
+#CapabilityBoundingSet=
+#SystemCallFilter=
+#NoNewPrivileges=true
+
+Restart=on-abnormal
+RestartSec=30s
+User=%USER%
+ExecStartPre=/opt/james/lighttpd -f /opt/james/server-lighttpd.conf -m /opt/james -t
+ExecStart=/opt/james/lighttpd -f /opt/james/server-lighttpd.conf -m /opt/james
+ExecReload=/bin/kill -INT $MAINPID ; /opt/james/lighttpd -f /opt/james/server-lighttpd.conf -m /opt/james
+
+[Install]
+WantedBy=multi-user.target

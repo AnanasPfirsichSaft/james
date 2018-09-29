@@ -1,0 +1,10 @@
+/var/log/james/*.log
+{
+	rotate 4
+	weekly
+	missingok
+	notifempty
+	delaycompress
+	compress
+	copytruncate
+}

@@ -1,0 +1,79 @@
+# vim:syntax=apparmor
+
+#include <tunables/global>
+
+/opt/james/lighttpd flags=(attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+
+  ptrace (read,trace),
+
+  / r,
+  deny / w,
+  /bin r,
+  /bin/*sh ixr,
+  /bin/grep ixr,
+  /bin/hostname ixr,
+  /bin/ps ixr,
+  /bin/ss ixr,
+
+  /dev r,
+  /dev/tty r,
+
+  /etc r,
+  /etc/php r,
+  /etc/php/** r,
+
+  /opt r,
+  /opt/james r,
+  /opt/james/** r,
+  /opt/james/james-server.cgi ix,
+  /opt/james/lighttpd ix,
+  /opt/james/mod_*.so m,
+
+# uncomment if you want to make your public folder available
+#  owner @{HOME}/ r,
+#  owner @{HOME}/Public/ r,
+#  owner @{HOME}/Public/** r,
+# allow writing in that directory, useful with webdav extension
+#  owner @{HOME}/Public/* w,
+
+  @{PROC}/ r,
+  @{PROC}/sys/kernel/pid_max r,
+  @{PROC}/tty r,
+  @{PROC}/tty/drivers r,
+  @{PROC}/loadavg r,
+  @{PROC}/uptime r,
+  @{PROC}/[0-9]*/cmdline r,
+  owner @{PROC}/[0-9]*/environ r,
+  @{PROC}/[0-9]*/stat r,
+  @{PROC}/[0-9]*/status r,
+  @{PROC}/[0-9]*/attr/current r,
+  owner @{PROC}/[0-9]*/fd/ r,
+  owner @{PROC}/[0-9]*/fd/* r,
+
+  /sbin r,
+  /sbin/killall5 ixr,
+
+  /tmp r,
+  owner /tmp/** rwlk,
+
+  /usr r,
+  /usr/bin r,
+  /usr/bin/kdialog Uxr,
+  /usr/bin/notify-send Uxr,
+  /usr/bin/ogg123 Uxr,
+  /usr/bin/php-cgi ixr,
+  /usr/bin/php-cgi[0-9.]* ixrm,
+  /usr/bin/zenity Uxr,
+
+  /usr/lib r,
+  /usr/lib/php/[0-9.]*/*.so rm,
+
+  /var r,
+  /var/log r,
+  /var/log/james rw,
+  /var/log/james/* rw,
+
+}
