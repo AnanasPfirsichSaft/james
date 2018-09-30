@@ -1,3 +1,4 @@
+# https://github.com/AnanasPfirsichSaft/james
 /var/log/james/*.log
 {
 	rotate 4

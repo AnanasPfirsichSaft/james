@@ -1,3 +1,4 @@
+# https://github.com/AnanasPfirsichSaft/james
 # log server output to /var/log/james
 JAMES_LOG=1
 

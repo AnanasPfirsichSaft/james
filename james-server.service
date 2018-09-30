@@ -1,5 +1,6 @@
 [Unit]
 Description=Personal Webserver for JAMES
+Documentation=https://github.com/AnanasPfirsichSaft/james
 After=network-online.target
 
 [Service]

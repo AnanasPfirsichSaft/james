@@ -1,4 +1,5 @@
 # vim:syntax=apparmor
+# https://github.com/AnanasPfirsichSaft/james
 
 #include <tunables/global>
 
